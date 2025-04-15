@@ -89,6 +89,27 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #F0B35B #1A1F2E;
+}
+
+/* Estilização da barra de rolagem para navegadores WebKit (Chrome, Safari) */
+.gemini-chatbot-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.gemini-chatbot-messages::-webkit-scrollbar-track {
+  background: #1A1F2E;
+  border-radius: 4px;
+}
+
+.gemini-chatbot-messages::-webkit-scrollbar-thumb {
+  background-color: #F0B35B;
+  border-radius: 4px;
+}
+
+.gemini-chatbot-messages::-webkit-scrollbar-thumb:hover {
+  background-color: #d49843;
 }
 
 .gemini-chatbot-message {
@@ -98,6 +119,7 @@
   font-size: 14px;
   line-height: 1.4;
   word-break: break-word;
+  position: relative;
 }
 
 .gemini-chatbot-message.user {
@@ -112,6 +134,68 @@
   background-color: #2A2F3E;
   color: #fff;
   border-bottom-left-radius: 4px;
+}
+
+/* Nova animação entre mensagens */
+.gemini-chatbot-animation-between {
+  align-self: flex-start;
+  margin: 6px 0;
+  display: flex;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background-color: rgba(42, 47, 62, 0.7);
+  animation: float-up 0.5s ease-out forwards, pulse 1.5s infinite;
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.gemini-chatbot-typing-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #F0B35B;
+  border-radius: 50%;
+  margin: 0 3px;
+  animation: gemini-chatbot-typing 1.4s infinite ease-in-out both;
+}
+
+.gemini-chatbot-typing-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.gemini-chatbot-typing-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes gemini-chatbot-typing {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .gemini-chatbot-input-container {
@@ -154,6 +238,12 @@
 
 .gemini-chatbot-send:hover {
   background-color: #d49843;
+}
+
+.gemini-chatbot-send:disabled {
+  background-color: #2A2F3E;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .gemini-chatbot-loading {
