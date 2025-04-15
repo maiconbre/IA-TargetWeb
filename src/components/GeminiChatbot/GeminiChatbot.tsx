@@ -73,8 +73,8 @@ const processMessageWithLinks = (text: string): React.ReactNode => {
 const GeminiChatbot: React.FC<GeminiChatbotProps> = ({ 
   apiKey, 
   systemPrompt,
-  chatTitle = "Assistente Virtual",
-  primaryColor = "#4285F4"  // Cor padrão do Google
+  chatTitle = "Ana - Assistente Virtual",
+  primaryColor = "#F0B35B"  // Cor dourada definida no CSS
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -88,16 +88,13 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
   const [isEmptyInput, setIsEmptyInput] = useState(true);
   const [showClearButton, setShowClearButton] = useState(false);
 
-  // Definir variáveis CSS para cores personalizadas
+  // Definir variáveis CSS para cores personalizadas apenas se for diferente da padrão
   useEffect(() => {
-    document.documentElement.style.setProperty('--chatbot-primary-color', primaryColor);
-    
-    // Calcular cores derivadas
-    const lighterColor = adjustColor(primaryColor, 40);  // Versão mais clara para backgrounds
-    const darkerColor = adjustColor(primaryColor, -20);  // Versão mais escura para hovers
-    
-    document.documentElement.style.setProperty('--chatbot-light-color', lighterColor);
-    document.documentElement.style.setProperty('--chatbot-dark-color', darkerColor);
+    // Não sobrescrever as variáveis CSS se a cor for a padrão
+    if (primaryColor !== "#F0B35B") {
+      document.documentElement.style.setProperty('--chatbot-primary-color', primaryColor);
+      document.documentElement.style.setProperty('--chatbot-primary-hover', adjustColor(primaryColor, -20));
+    }
   }, [primaryColor]);
 
   // Função para ajustar a cor (clareando ou escurecendo)
