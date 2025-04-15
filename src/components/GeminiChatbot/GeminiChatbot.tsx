@@ -11,21 +11,22 @@ interface Message {
 interface GeminiChatbotProps {
   apiKey: string;
   systemPrompt?: string;
+  chatTitle?: string;
+  primaryColor?: string;
 }
 
 // Função melhorada para detectar e transformar links em elementos clicáveis
 const processMessageWithLinks = (text: string): React.ReactNode => {
-  // Regex aprimorada para capturar links do WhatsApp (wa.me/número)
-  // Adicionamos uma verificação de limite de palavra (\b) para evitar duplicação
-  const whatsappLinkRegex = /\b(wa\.me\/\d+)\b/g;
+  // Regex aprimorada para capturar diferentes tipos de links
+  const linkRegex = /\b(https?:\/\/\S+|wa\.me\/\d+)\b/g;
   
   // Se não houver links, retornar o texto original
-  if (!whatsappLinkRegex.test(text)) {
+  if (!linkRegex.test(text)) {
     return text;
   }
   
   // Encontrar todas as ocorrências de links
-  const matches = Array.from(text.matchAll(whatsappLinkRegex));
+  const matches = Array.from(text.matchAll(linkRegex));
   
   if (matches.length === 0) return text;
   
@@ -42,11 +43,14 @@ const processMessageWithLinks = (text: string): React.ReactNode => {
       result.push(text.substring(lastIndex, matchIndex));
     }
     
+    // Preparar URL completa para o link
+    const url = fullMatch.startsWith('http') ? fullMatch : `https://${fullMatch}`;
+    
     // Adicionar o link como elemento clicável
     result.push(
       <a 
         key={`link-${index}`}
-        href={`https://${fullMatch}`} 
+        href={url} 
         target="_blank" 
         rel="noopener noreferrer"
         className="gemini-chatbot-link"
@@ -68,7 +72,9 @@ const processMessageWithLinks = (text: string): React.ReactNode => {
 
 const GeminiChatbot: React.FC<GeminiChatbotProps> = ({ 
   apiKey, 
-  systemPrompt 
+  systemPrompt,
+  chatTitle = "Assistente Virtual",
+  primaryColor = "#4285F4"  // Cor padrão do Google
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -79,6 +85,41 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
   const [animatingBetween, setAnimatingBetween] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isEmptyInput, setIsEmptyInput] = useState(true);
+  const [showClearButton, setShowClearButton] = useState(false);
+
+  // Definir variáveis CSS para cores personalizadas
+  useEffect(() => {
+    document.documentElement.style.setProperty('--chatbot-primary-color', primaryColor);
+    
+    // Calcular cores derivadas
+    const lighterColor = adjustColor(primaryColor, 40);  // Versão mais clara para backgrounds
+    const darkerColor = adjustColor(primaryColor, -20);  // Versão mais escura para hovers
+    
+    document.documentElement.style.setProperty('--chatbot-light-color', lighterColor);
+    document.documentElement.style.setProperty('--chatbot-dark-color', darkerColor);
+  }, [primaryColor]);
+
+  // Função para ajustar a cor (clareando ou escurecendo)
+  const adjustColor = (color: string, amount: number): string => {
+    // Converter hex para RGB
+    let r = parseInt(color.substring(1, 3), 16);
+    let g = parseInt(color.substring(3, 5), 16);
+    let b = parseInt(color.substring(5, 7), 16);
+    
+    // Ajustar valores
+    r = Math.max(0, Math.min(255, r + amount));
+    g = Math.max(0, Math.min(255, g + amount));
+    b = Math.max(0, Math.min(255, b + amount));
+    
+    // Converter de volta para hex
+    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+  };
+
+  // Verificar se há mensagens para mostrar o botão de limpar
+  useEffect(() => {
+    setShowClearButton(messages.length > 1);
+  }, [messages]);
 
   // Rolar para a mensagem mais recente quando novas mensagens são adicionadas
   useEffect(() => {
@@ -89,34 +130,60 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
   
   // Manter o foco no input após enviar mensagem
   useEffect(() => {
-    if (!isLoading && inputRef.current) {
+    if (!isLoading && inputRef.current && isOpen) {
       inputRef.current.focus();
     }
-  }, [isLoading, messages]);
+  }, [isLoading, messages, isOpen]);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
+    // Focar no input quando o chat é aberto
+    if (!isOpen) {
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 300);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText(e.target.value);
+    const value = e.target.value;
+    setInputText(value);
+    setIsEmptyInput(value.trim() === '');
   };
 
   const generateUniqueId = (): string => {
     return `msg-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
   };
 
-  // Função para fragmentar mensagens longas em parágrafos completos - corrigida
+  // Limpar o histórico de conversa
+  const clearChat = () => {
+    setMessages([
+      { id: 'welcome', text: "Olá, como posso ajudar hoje?", sender: 'bot', isComplete: true }
+    ]);
+    setInputText('');
+    setIsEmptyInput(true);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  // Função melhorada para fragmentar mensagens longas em parágrafos
   const fragmentMessage = (text: string, sender: 'bot'): void => {
-    // Verificar se o texto contém links do WhatsApp
-    const containsWhatsAppLink = /\bwa\.me\/\d+\b/g.test(text);
+    // Verificar se o texto contém links
+    const containsLink = /\b(https?:\/\/\S+|wa\.me\/\d+)\b/g.test(text);
     
-    if (containsWhatsAppLink) {
-      // Se contiver links do WhatsApp, não fragmentar a mensagem para evitar problemas
+    // Limpar pontuação excessiva - correção principal
+    // Não adicionar pontos após pontos de interrogação/exclamação
+    const cleanText = text.replace(/([!?])\./g, '$1');
+    
+    if (containsLink || cleanText.length < 150) {
+      // Se contiver links ou for uma mensagem curta, não fragmentar
       const msgId = generateUniqueId();
       setMessages(prev => [...prev, { 
         id: msgId, 
-        text: text, 
+        text: cleanText, 
         sender, 
         isComplete: true 
       }]);
@@ -125,86 +192,66 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
       setAnimatingBetween(msgId);
       setTimeout(() => {
         setAnimatingBetween(null);
-      }, 2000);
+      }, 1500);
       
       return;
     }
     
-    // Para mensagens sem links, continuar com a lógica de fragmentação original
-    // Dividir a mensagem em parágrafos
-    let paragraphs = text.split(/(?<=\.)\s+/);
+    // Dividir a mensagem em frases/sentenças (usando ponto, interrogação ou exclamação)
+    let sentences = cleanText.split(/(?<=[.!?])\s+/);
     
-    // Combinar os parágrafos muito curtos
-    const consolidatedParagraphs: string[] = [];
-    let currentParagraph = '';
+    // Agrupar sentenças em fragmentos legíveis
+    const fragments: string[] = [];
+    let currentFragment = '';
     
-    for (const paragraph of paragraphs) {
-      if (currentParagraph.length + paragraph.length < 100) {
-        currentParagraph += (currentParagraph ? ' ' : '') + paragraph;
+    for (const sentence of sentences) {
+      if (currentFragment.length + sentence.length < 200) {
+        currentFragment += (currentFragment ? ' ' : '') + sentence;
       } else {
-        if (currentParagraph) {
-          consolidatedParagraphs.push(currentParagraph);
+        if (currentFragment) {
+          fragments.push(currentFragment);
         }
-        currentParagraph = paragraph;
+        currentFragment = sentence;
       }
     }
     
-    if (currentParagraph) {
-      consolidatedParagraphs.push(currentParagraph);
+    if (currentFragment) {
+      fragments.push(currentFragment);
     }
     
-    // Limitar a 3 mensagens e garantir que todas terminem com ponto final
-    const finalParagraphs: string[] = [];
-    if (consolidatedParagraphs.length <= 3) {
-      finalParagraphs.push(...consolidatedParagraphs);
+    // Limitar a no máximo 3 fragmentos para não sobrecarregar o chat
+    const finalFragments: string[] = [];
+    if (fragments.length <= 3) {
+      finalFragments.push(...fragments);
     } else {
-      // Distribuir o conteúdo em 3 partes proporcionais
-      const combinedText = consolidatedParagraphs.join(' ');
-      const avgLength = Math.ceil(combinedText.length / 3);
+      // Distribuir o conteúdo em 3 partes lógicas
+      const firstThird = Math.floor(fragments.length / 3);
+      const secondThird = firstThird * 2;
       
-      let currentSegment = '';
-      let segmentCount = 0;
-      
-      for (const paragraph of consolidatedParagraphs) {
-        if (segmentCount < 2 && (currentSegment.length + paragraph.length > avgLength)) {
-          finalParagraphs.push(currentSegment);
-          currentSegment = paragraph;
-          segmentCount++;
-        } else {
-          currentSegment += (currentSegment ? ' ' : '') + paragraph;
-        }
-      }
-      
-      // Adicionar o último segmento
-      if (currentSegment) {
-        finalParagraphs.push(currentSegment);
-      }
+      finalFragments.push(
+        fragments.slice(0, firstThird).join(' '),
+        fragments.slice(firstThird, secondThird).join(' '),
+        fragments.slice(secondThird).join(' ')
+      );
     }
-    
-    // Garantir que cada fragmento termine com um ponto final (exceto se já tiver pontuação)
-    finalParagraphs.forEach((paragraph, index) => {
-      if (!paragraph.endsWith('.') && !paragraph.endsWith('!') && !paragraph.endsWith('?')) {
-        finalParagraphs[index] = paragraph + '.';
-      }
-    });
 
     // Adicionar o primeiro fragmento imediatamente
     const firstMsgId = generateUniqueId();
     setMessages(prev => [...prev, { 
       id: firstMsgId, 
-      text: finalParagraphs[0], 
+      text: finalFragments[0], 
       sender, 
-      isComplete: finalParagraphs.length === 1 
+      isComplete: finalFragments.length === 1 
     }]);
     
     // Se houver animação entre mensagens, mostrar após a primeira mensagem
-    if (finalParagraphs.length > 1) {
+    if (finalFragments.length > 1) {
       setAnimatingBetween(firstMsgId);
     }
     
     // Adicionar os fragmentos restantes com intervalo
-    if (finalParagraphs.length > 1) {
-      finalParagraphs.slice(1).forEach((fragment, index) => {
+    if (finalFragments.length > 1) {
+      finalFragments.slice(1).forEach((fragment, index) => {
         setTimeout(() => {
           const newMsgId = generateUniqueId();
           setMessages(prev => {
@@ -223,7 +270,7 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
               id: newMsgId, 
               text: fragment, 
               sender, 
-              isComplete: index === finalParagraphs.length - 2
+              isComplete: index === finalFragments.length - 2
             }];
           });
           
@@ -231,18 +278,18 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
           setAnimatingBetween(newMsgId);
           
           // Se for o último fragmento, limpar a animação após um tempo
-          if (index === finalParagraphs.length - 2) {
+          if (index === finalFragments.length - 2) {
             setTimeout(() => {
               setAnimatingBetween(null);
-            }, 2000);
+            }, 1500);
           }
-        }, (index + 1) * 2000); // 2 segundos de intervalo entre fragmentos
+        }, (index + 1) * 1500); // 1.5 segundos de intervalo entre fragmentos (mais rápido)
       });
     } else {
-      // Se for apenas um fragmento, mostrar animação por 2 segundos e depois remover
+      // Se for apenas um fragmento, mostrar animação por 1.5 segundos e depois remover
       setTimeout(() => {
         setAnimatingBetween(null);
-      }, 2000);
+      }, 1500);
     }
   };
 
@@ -254,6 +301,7 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
     const userMessage = { id: userMessageId, text: inputText, sender: 'user' as const, isComplete: true };
     setMessages(prev => [...prev, userMessage]);
     setInputText('');
+    setIsEmptyInput(true);
     setIsLoading(true);
     
     // Mostrar animação após a mensagem do usuário
@@ -293,7 +341,6 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
       };
 
       // Fazer a chamada para a API do Gemini
-      // Usando o modelo gemini-2.0-flash conforme documentação mais recente
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
         method: 'POST',
         headers: {
@@ -366,6 +413,12 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
     }
   };
 
+  // Formatar data e hora para exibição
+  const formatTimestamp = () => {
+    const now = new Date();
+    return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+  };
+
   return (
     <div className="gemini-chatbot-container">
       <button 
@@ -387,24 +440,44 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
 
       <div className={`gemini-chatbot-window ${isOpen ? 'open' : ''}`}>
         <div className="gemini-chatbot-header">
-          <h3 className="gemini-chatbot-title">Assistente Virtual</h3>
-          <button 
-            className="gemini-chatbot-close" 
-            onClick={toggleChat}
-            aria-label="Fechar chat"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
+          <h3 className="gemini-chatbot-title">{chatTitle}</h3>
+          <div className="gemini-chatbot-header-actions">
+            {showClearButton && (
+              <button 
+                className="gemini-chatbot-clear" 
+                onClick={clearChat}
+                aria-label="Limpar conversa"
+                title="Limpar conversa"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </button>
+            )}
+            <button 
+              className="gemini-chatbot-close" 
+              onClick={toggleChat}
+              aria-label="Fechar chat"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div className="gemini-chatbot-messages">
           {messages.map((message, index) => (
             <React.Fragment key={message.id}>
               <div className={`gemini-chatbot-message ${message.sender}`}>
-                {processMessageWithLinks(message.text)}
+                <div className="gemini-chatbot-message-content">
+                  {processMessageWithLinks(message.text)}
+                </div>
+                <div className="gemini-chatbot-message-time">
+                  {formatTimestamp()}
+                </div>
               </div>
               
               {/* Animação entre mensagens */}
@@ -429,28 +502,33 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="gemini-chatbot-input-container">
-          <input
-            type="text"
-            className="gemini-chatbot-input"
-            placeholder="Digite sua mensagem..."
-            value={inputText}
-            onChange={handleInputChange}
-            onKeyPress={handleKeyPress}
-            disabled={isLoading}
-            ref={inputRef}
-          />
-          <button 
-            className="gemini-chatbot-send" 
-            onClick={sendMessage}
-            disabled={isLoading || inputText.trim() === ''}
-            aria-label="Enviar mensagem"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-          </button>
+        <div className="gemini-chatbot-input-area">
+          <div className="gemini-chatbot-input-container">
+            <input
+              type="text"
+              className="gemini-chatbot-input"
+              placeholder="Digite sua mensagem..."
+              value={inputText}
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
+              disabled={isLoading}
+              ref={inputRef}
+            />
+            <button 
+              className={`gemini-chatbot-send ${!isEmptyInput ? 'active' : ''}`}
+              onClick={sendMessage}
+              disabled={isLoading || isEmptyInput}
+              aria-label="Enviar mensagem"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+          <div className="gemini-chatbot-powered-by">
+            Powered by TargetWeb
+          </div>
         </div>
       </div>
     </div>
