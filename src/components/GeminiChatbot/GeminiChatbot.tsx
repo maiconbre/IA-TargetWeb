@@ -73,7 +73,7 @@ const processMessageWithLinks = (text: string): React.ReactNode => {
 const GeminiChatbot: React.FC<GeminiChatbotProps> = ({ 
   apiKey, 
   systemPrompt,
-  chatTitle = "Ana - Assistente Virtual",
+  chatTitle = "Assistente Virtual Ana",
   primaryColor = "#F0B35B"  // Cor dourada definida no CSS
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -131,6 +131,20 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
       inputRef.current.focus();
     }
   }, [isLoading, messages, isOpen]);
+
+  // Adicionar evento de tecla ESC para fechar o chat
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen]);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);

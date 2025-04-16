@@ -1,11 +1,17 @@
-import React from 'react';
+
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import GeminiChatbot from './components/GeminiChatbot/GeminiChatbot';
+import VendaPage2 from './pages/VendaPage2';
 import './index.css';
 import './additional-styles.css';
 
-const App: React.FC = () => {
+const AppContent = () => {
   // API Key do Gemini para demonstração
   const apiKey = "AIzaSyDDwwZTvNt2PylAXnMOT6udeqHUgiRjEIY";
+  
+  // Obter a localização atual para animações de transição
+  const location = useLocation();
   
   // Prompt personalizado para o chatbot da barbearia
   const promptPersonalizado = `
@@ -55,14 +61,47 @@ Você é Ana, a assistente virtual inteligente da TargetWeb, especialmente trein
 - Force frases curtas maximo 50 caracteres por mensagem, com excesso de informações. Seja breve possível e direto na solução do problema.
 - Mantenha uma postura segura, clara e sempre focada na conversão, como uma consultoria especializada.
 `
+  const pageTransition = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+    transition: { duration: 0.3, ease: "easeInOut" }
+  };
+
   return (
-    <div className="app">
-      <GeminiChatbot 
-        apiKey={apiKey} 
-        systemPrompt={promptPersonalizado}
-      />
+    <div className="min-h-screen bg-[#0D121E] text-white">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={location.pathname}
+          className="w-full"
+          initial={pageTransition.initial}
+          animate={pageTransition.animate}
+          exit={pageTransition.exit}
+          transition={pageTransition.transition}
+        >
+          <Routes location={location}>
+            <Route path="/" element={<VendaPage2 />}/>
+          </Routes>
+        </motion.div>
+      </AnimatePresence>
+      
+      {/* Componente do Chatbot fixo na tela */}
+      <div className="fixed bottom-20 right-5 z-50">
+        <GeminiChatbot 
+          apiKey={apiKey} 
+          systemPrompt={promptPersonalizado}
+        />
+      </div>
     </div>
   );
 };
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
+}
 
 export default App;
