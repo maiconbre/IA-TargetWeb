@@ -3,16 +3,9 @@ import { motion } from 'framer-motion';
 
 interface NavbarProps {
   openDemoModal: () => void;
-  commonAnimations: {
-    headerGradient: string;
-    cardGradient: string;
-    glowEffect: string;
-    buttonGradient: string;
-    buttonShine: string;
-  };
 }
 
-const Navbar: React.FC<NavbarProps> = ({ openDemoModal, commonAnimations }) => {
+const Navbar: React.FC<NavbarProps> = ({ openDemoModal }) => {
   return (
     <motion.header
       initial={{ y: -100 }}

@@ -17,19 +17,6 @@ import {
 const PROMO_END_TIME = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 horas
 const SLOTS_LEFT = 3;
 
-// CTAs otimizados com variantes de teste A/B
-const ctaVariants = {
-  primary: {
-    text: "Comece Agora com 50% OFF",
-    subtext: "Oferta válida por tempo limitado",
-    urgency: "Apenas 3 descontos restantes!"
-  },
-  secondary: {
-    text: "Ver Demonstração",
-    subtext: "Conheça todas as funcionalidades"
-  }
-};
-
 // Passos para o modal de demonstração
 const demoSteps = [
   {
@@ -189,7 +176,7 @@ const VendaPage2: React.FC = () => {
 
       <div className={`min-h-screen ${commonAnimations.headerGradient} text-white overflow-x-hidden w-full relative`}>
         {/* Componentes modulares */}
-        <Navbar openDemoModal={openDemoModal} commonAnimations={commonAnimations} />
+        <Navbar openDemoModal={openDemoModal} />
         <Hero heroRef={heroRef} commonAnimations={commonAnimations} />
         <Features />
         <Planos commonAnimations={commonAnimations} />

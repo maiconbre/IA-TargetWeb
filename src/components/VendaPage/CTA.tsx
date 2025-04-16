@@ -49,11 +49,7 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
   return (
     <>
       <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1A1F2E] via-[#0D121E] to-[#1A1F2E]">
-          <div className="absolute inset-0 bg-[url('/img/pattern.svg')] opacity-5"></div>
-          <div className="absolute top-0 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-[#F0B35B]/5 rounded-full filter blur-[80px] sm:blur-[100px] animate-pulse-slow"></div>
-          <div className="absolute bottom-0 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-[#F0B35B]/5 rounded-full filter blur-[80px] sm:blur-[100px] animate-pulse-slow animation-delay-1000"></div>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#F0B35B]/5 to-transparent opacity-5"></div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
