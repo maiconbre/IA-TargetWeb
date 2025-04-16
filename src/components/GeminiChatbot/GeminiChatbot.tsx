@@ -480,7 +480,7 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
         </div>
 
         <div className="gemini-chatbot-messages">
-          {messages.map((message, index) => (
+          {messages.map((message) => (
             <React.Fragment key={message.id}>
               <div className={`gemini-chatbot-message ${message.sender}`}>
                 <div className="gemini-chatbot-message-content">
