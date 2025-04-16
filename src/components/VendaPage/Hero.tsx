@@ -21,7 +21,7 @@ const Hero: React.FC<HeroProps> = ({ heroRef, commonAnimations }) => {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-[100dvh] flex items-center pt-16 sm:pt-20 lg:pt-24 pb-8 overflow-hidden"
+      className="relative min-h-[100dvh] lg:min-h-[90dvh] flex items-center pt-8 sm:pt-8 lg:pt-0 pb-8 overflow-hidden"
       tabIndex={-1}
     >
       {/* Elementos de fundo animados com parallax */}
