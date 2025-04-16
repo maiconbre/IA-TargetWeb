@@ -7,7 +7,7 @@ import './additional-styles.css';
 
 const AppContent = () => {
   // API Key do Gemini para demonstração
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
   
   // Obter a localização atual para animações de transição
   const location = useLocation();
