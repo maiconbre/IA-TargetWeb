@@ -8,15 +8,31 @@
   --chatbot-border: #2A2F3E;
   --chatbot-text-light: #ffffff;
   --chatbot-shadow: rgba(0, 0, 0, 0.2);
+  --chatbot-placeholder-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Adicionando um namespace específico para o componente GeminiChatbot */
+.gemini-chatbot-container * {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+/* Reset de estilos para o componente GeminiChatbot */
+.gemini-chatbot-container {
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
 /* Container principal */
 .gemini-chatbot-container {
   position: fixed;
-  bottom: 20px;
+  bottom: 80px;
   right: 20px;
-  z-index: 1000;
-  font-family: 'Poppins', sans-serif;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none; /* Permite cliques em elementos abaixo */
 }
 
 /* Botão de ativação do chat */
@@ -37,6 +53,8 @@
   bottom: 0;
   right: 0;
   outline: none;
+  pointer-events: auto; /* Garante que o botão seja clicável */
+  z-index: 10000; /* Aumentando o z-index para garantir que fique acima de qualquer coisa */
 }
 
 .gemini-chatbot-button:hover {
@@ -58,7 +76,7 @@
   height: 500px;
   max-height: calc(100vh - 100px);
   background-color: var(--chatbot-bg-dark);
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: 0 8px 24px var(--chatbot-shadow);
   display: flex;
   flex-direction: column;
@@ -69,12 +87,13 @@
   transform-origin: bottom right;
   transition: all 0.3s ease;
   border: 1px solid var(--chatbot-border);
+  z-index: 9998;
 }
 
 .gemini-chatbot-window.open {
   transform: translateY(0) scale(1);
   opacity: 1;
-  pointer-events: all;
+  pointer-events: auto; /* Permite interação com a janela do chat */
 }
 
 /* Cabeçalho do chat */
@@ -339,27 +358,46 @@
   display: flex;
   gap: 8px;
   border-top: 1px solid var(--chatbot-border);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  isolation: isolate; /* Cria um novo contexto de empilhamento para evitar interferência de outros estilos */
 }
 
+/* Estilo específico para o input do chat */
 .gemini-chatbot-input {
-  flex: 1;
-  padding: 10px 14px;
-  border-radius: 20px;
-  border: 1px solid var(--chatbot-border);
-  background-color: var(--chatbot-bg-dark);
-  color: var(--chatbot-text-light);
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.3s;
+  box-sizing: border-box;
   font-family: inherit;
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 24px;
+  border: 1px solid var(--chatbot-border);
+  background-color: var(--chatbot-bg-dark) !important;
+  color: var(--chatbot-text-light) !important;
+  font-size: 13px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .gemini-chatbot-input:focus {
   border-color: var(--chatbot-primary-color);
+  box-shadow: 0 0 0 2px rgba(240, 179, 91, 0.15), inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: var(--chatbot-bg-dark) !important;
 }
 
 .gemini-chatbot-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--chatbot-text-muted);
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.gemini-chatbot-input:disabled {
+  background-color: var(--chatbot-bg-dark) !important;
+  color: var(--chatbot-text-light) !important;
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .gemini-chatbot-send {
@@ -415,18 +453,31 @@
 /* Responsividade para dispositivos móveis */
 @media (max-width: 480px) {
   .gemini-chatbot-window {
-    width: calc(100vw - 40px);
-    height: 60vh;
-    bottom: 80px;
+    width: calc(100vw - 32px);
+    height: 50vh;
+    bottom: 70px;
+    right: 16px;
+    border-radius: 12px;
   }
   
   .gemini-chatbot-button {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
+    right: 16px;
+    bottom: 16px;
   }
   
   .gemini-chatbot-button svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .gemini-chatbot-input-container {
+    padding: 8px;
+  }
+
+  .gemini-chatbot-input {
+    padding: 6px 10px;
+    font-size: 12px;
   }
 }
