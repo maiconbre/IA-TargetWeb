@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import GeminiChatbot from './components/GeminiChatbot/GeminiChatbot';
@@ -8,7 +7,7 @@ import './additional-styles.css';
 
 const AppContent = () => {
   // API Key do Gemini para demonstração
-  const apiKey = "AIzaSyDDwwZTvNt2PylAXnMOT6udeqHUgiRjEIY";
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   
   // Obter a localização atual para animações de transição
   const location = useLocation();

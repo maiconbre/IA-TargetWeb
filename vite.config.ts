@@ -10,6 +10,17 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    sourcemap: true,
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['framer-motion', 'lucide-react', 'react-icons'],
+          charts: ['chart.js', 'react-chartjs-2', 'recharts']
+        }
+      }
+    }
   }
 });
