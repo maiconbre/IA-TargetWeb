@@ -69,12 +69,12 @@ const Hero: React.FC<HeroProps> = ({ heroRef, commonAnimations }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight sm:leading-relaxed mb-4 sm:mb-6 px-2 sm:px-0"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight sm:leading-relaxed mb-4 sm:mb-6 px-2 sm:px-0"
             >
               <span className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400 pb-2">
                 Gerencie seus Agendamentos com 
               </span>
-              <span className="relative mt-2 sm:mt-4">
+              <span className="relative mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl sm:mt-4">
                 <span className={`relative inline-block bg-clip-text text-transparent ${commonAnimations.buttonGradient}`}>
                   Profissionalismo
                   <motion.span
@@ -95,32 +95,32 @@ const Hero: React.FC<HeroProps> = ({ heroRef, commonAnimations }) => {
               className="space-y-4 sm:space-y-6"
             >
               {/* Lista de dores */}
-              <div className="space-y-2 px-2 sm:px-0">
+              <div className="space-y-1 px-2 sm:px-0">
                 <motion.div 
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8, duration: 0.5 }}
-                  className="flex items-center gap-1.5 text-red-400/90"
+                  className="flex items-center gap-1 text-red-400/90"
                 >
-                  <span className="text-base min-w-[20px]">❌</span>
-                  <p className="text-[12px] sm:text-sm">Cansado de perder horários por falta de organização?</p>
+                  <span className="text-base min-w-[10px]">❌</span>
+                  <p className="text-[12px] sm:text-sm">Perder horários por falta de organização?</p>
                 </motion.div>
                 <motion.div 
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 1.0, duration: 0.5 }}
-                  className="flex items-center gap-1.5 text-red-400/90"
+                  className="flex items-center gap-1 text-red-400/90"
                 >
-                  <span className="text-base min-w-[20px]">❌</span>
+                  <span className="text-base min-w-[10px]">❌</span>
                   <p className="text-[12px] sm:text-sm">Clientes mandando mensagens toda hora?</p>
                 </motion.div>
                 <motion.div 
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 1.2, duration: 0.5 }}
-                  className="flex items-center gap-1.5 text-red-400/90"
+                  className="flex items-center gap-1 text-red-400/90"
                 >
-                  <span className="text-base min-w-[20px]">❌</span>
+                  <span className="text-base min-w-[10px]">❌</span>
                   <p className="text-[12px] sm:text-sm">Perdendo tempo respondendo WhatsApp o dia todo?</p>
                 </motion.div>
               </div>
@@ -136,15 +136,15 @@ const Hero: React.FC<HeroProps> = ({ heroRef, commonAnimations }) => {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <span className="text-[#F0B35B] min-w-[16px]">✓</span>
-                    <p className="text-[12px] sm:text-base text-gray-300">Sistema automático de agendamentos 24h</p>
+                    <p className="text-[12px] sm:text-base text-gray-300">Sistema automático agendamentos 24h</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[#F0B35B] min-w-[16px]">✓</span>
-                    <p className="text-[12px] sm:text-base text-gray-300">Lembretes automáticos para você e seus clientes</p>
+                    <p className="text-[12px] sm:text-base text-gray-300">Lembretes para você e seus clientes</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[#F0B35B] min-w-[16px]">✓</span>
-                    <p className="text-[12px] sm:text-base text-gray-300">Redução de 4 horas de gestão por dia</p>
+                    <p className="text-[12px] sm:text-base text-gray-300">Ganho de 45% de faturamento</p>
                   </div>
                 </div>
               </motion.div>

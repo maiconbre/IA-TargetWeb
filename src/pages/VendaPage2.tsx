@@ -10,7 +10,8 @@ import {
   Features,
   CTA,
   Formulario,
-  Footer
+  Footer,
+  MockupPreview
 } from '../components/VendaPage';
 
 // Configuração da promoção relâmpago
@@ -40,19 +41,19 @@ const demoSteps = [
   },
   {
     id: 2,
-    title: "Agendamento Online",
-    description: "Seus clientes agendam diretamente pelo WhatsApp",
+    title: "Agendamento Direto",
+    description: "Seus clientes agendam diretamente pelo link personalizado",
     icon: Calendar,
     details: [
-      "Agendamento 24/7",
-      "Confirmação automática",
-      "Lembretes por WhatsApp",
-      "Cancelamento fácil"
+      "Link personalizado para sua barbearia",
+      "Agendamento 24/7 sem intermediários",
+      "Confirmação automática por email e SMS",
+      "Cancelamento e remarcação facilitados"
     ],
     features: [
-      { title: "WhatsApp", desc: "Integração nativa" },
-      { title: "Automatizado", desc: "Sem intervenção manual" },
-      { title: "Conveniente", desc: "Para você e seus clientes" }
+      { title: "Link Exclusivo", desc: "URL personalizada para sua barbearia" },
+      { title: "Automatizado", desc: "Sem necessidade de atendimento manual" },
+      { title: "Multiplataforma", desc: "Funciona em qualquer dispositivo" }
     ],
     color: "from-green-500 to-green-600",
     animate: {}
@@ -179,6 +180,7 @@ const VendaPage2: React.FC = () => {
         <Navbar openDemoModal={openDemoModal} />
         <Hero heroRef={heroRef} commonAnimations={commonAnimations} />
         <Features />
+        <MockupPreview commonAnimations={commonAnimations} />
         <Planos commonAnimations={commonAnimations} />
         <CTA 
           hours={hours} 

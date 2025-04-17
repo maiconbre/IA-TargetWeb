@@ -622,3 +622,100 @@
     z-index: 1000;
   }
 }
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 320px) {
+  .gemini-chatbot-window {
+    width: 100vw;
+    height: 80vh;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .gemini-chatbot-header {
+    padding: 8px 10px;
+    min-height: 40px;
+  }
+
+  .gemini-chatbot-title {
+    font-size: 14px;
+  }
+
+  .gemini-chatbot-messages {
+    padding: 8px;
+    gap: 6px;
+  }
+
+  .gemini-chatbot-message {
+    max-width: 92%;
+    padding: 6px 10px;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .gemini-chatbot-input-container {
+    padding: 6px 8px;
+    gap: 6px;
+    min-height: 48px;
+  }
+
+  .gemini-chatbot-input {
+    padding: 6px 10px;
+    font-size: 13px;
+    min-height: 36px;
+    max-height: 36px;
+    border-radius: 18px;
+    width: calc(100% - 42px); /* Garante espaço para o botão */
+  }
+
+  .gemini-chatbot-send {
+    width: 36px;
+    height: 36px;
+    min-width: 36px; /* Evita que o botão encolha */
+    flex-shrink: 0; /* Impede que o botão seja comprimido */
+  }
+
+  .gemini-chatbot-send svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .gemini-chatbot-message-time {
+    font-size: 9px;
+    margin-top: 1px;
+  }
+
+  .gemini-chatbot-powered-by {
+    font-size: 9px;
+    padding: 3px 0;
+  }
+
+  .gemini-chatbot-header-actions {
+    gap: 4px;
+  }
+
+  .gemini-chatbot-clear,
+  .gemini-chatbot-close {
+    width: 24px;
+    height: 24px;
+    padding: 3px;
+  }
+
+  .gemini-chatbot-clear svg,
+  .gemini-chatbot-close svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Ajuste do botão flutuante para telas muito pequenas */
+  .gemini-chatbot-button {
+    width: 44px;
+    height: 44px;
+    bottom: 80px;
+    right: 12px;
+  }
+
+  .gemini-chatbot-button svg {
+    width: 18px;
+    height: 18px;
+  }
+}
