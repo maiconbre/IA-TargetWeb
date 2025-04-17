@@ -72,17 +72,6 @@ const Features: React.FC = () => {
               delay: 0.1 
             },
             { 
-              icon: Users, 
-              title: 'Fidelize seus Clientes', 
-              desc: 'Histórico detalhado de cada cliente, preferências personalizadas e sistema de pontos que aumenta o retorno. Seus clientes nunca mais irão para a concorrência.',
-              highlight: 'Alta Retenção',
-              metrics: {
-                label: 'Taxa de retorno',
-                value: '+75%'
-              },
-              delay: 0.2 
-            },
-            { 
               icon: BarChart, 
               title: 'Gestão Completa', 
               desc: 'Acompanhe em tempo real seu faturamento, serviços mais lucrativos e horários de pico. Tome decisões baseadas em dados para maximizar seus lucros.',
