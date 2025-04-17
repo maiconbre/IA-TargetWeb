@@ -47,19 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ openDemoModal }) => {
               "
             >
               <span className="relative z-10 whitespace-nowrap">Como funciona?</span>
-              <svg 
-                className="w-3 h-3 xs:w-3.5 xs:h-3.5 sm:w-4 sm:h-4 relative z-10" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
-                />
-              </svg>
+              
             </motion.button>
           </div>
         </div>
