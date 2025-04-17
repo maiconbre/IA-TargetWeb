@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Facebook, Twitter, Mail, Phone, MapPin, ArrowRight, Clock, Users, Star } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 
 interface FooterProps {
   commonAnimations: {
@@ -13,12 +13,6 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
-  const stats = [
-    { number: '2.5k+', label: 'Barbearias', icon: Users },
-    { number: '98%', label: 'Satisfação', icon: Star },
-    { number: '24/7', label: 'Suporte', icon: Clock },
-  ];
-
   return (
     <footer className="relative overflow-hidden">
       {/* Gradiente de fundo */}
@@ -71,9 +65,9 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
                     { icon: Instagram, link: '#' },
                     { icon: Facebook, link: '#' },
                     { icon: Twitter, link: '#' }
-                  ].map((social, index) => (
+                  ].map((social, i) => (
                     <motion.a
-                      key={index}
+                      key={i}
                       href={social.link}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
@@ -103,7 +97,7 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
                       'Planos',
                       'Demonstração',
                       'Contato'
-                    ].map((item, index) => (
+                    ].map((item) => (
                       <motion.li
                         key={item}
                         whileHover={{ x: 5 }}
@@ -131,9 +125,9 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
                       { icon: Mail, text: 'contato@barbershop.com.br' },
                       { icon: Phone, text: '(21) 99776-0398' },
                       { icon: MapPin, text: 'Rio de Janeiro, RJ' }
-                    ].map((item, index) => (
+                    ].map((item, i) => (
                       <motion.li
-                        key={index}
+                        key={i}
                         whileHover={{ scale: 1.02 }}
                         className="flex items-center gap-2 sm:gap-3 group"
                       >
