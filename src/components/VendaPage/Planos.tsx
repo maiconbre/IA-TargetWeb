@@ -32,7 +32,7 @@ const Planos: React.FC<PlanosProps> = ({ commonAnimations }) => {
           {/* Card Plano Mensal */}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className={`relative ${commonAnimations.cardGradient} p-4 sm:p-6 lg:p-8 rounded-lg border border-[#F0B35B]/10 w-full sm:w-[calc(33%-1rem)] max-w-[300px] mx-auto ${commonAnimations.glowEffect}`}
+            className={`relative ${commonAnimations.cardGradient} p-4 sm:p-6 lg:p-8 rounded-lg border border-[#F0B35B]/10 w-full sm:w-[calc(33%-1rem)] max-w-[350px] mx-auto ${commonAnimations.glowEffect}`}
           >
             <div className="relative">
               <h3 className="text-lg sm:text-xl font-bold mb-2 text-white">Plano Mensal</h3>
@@ -57,7 +57,7 @@ const Planos: React.FC<PlanosProps> = ({ commonAnimations }) => {
           </motion.div>
 
           {/* Card Plano Semestral em Destaque */}
-          <div className="relative bg-gradient-to-br from-[#1A1F2E] to-[#252B3B] p-4 sm:p-6 lg:p-8 rounded-lg border-2 border-[#F0B35B] shadow-xl transform hover:scale-105 transition-all duration-300 w-full sm:w-[calc(33%-1rem)] max-w-[300px] mx-auto z-10">
+          <div className="relative bg-gradient-to-br from-[#1A1F2E] to-[#252B3B] p-4 sm:p-6 lg:p-8 rounded-lg border-2 border-[#F0B35B] shadow-xl transform hover:scale-105 transition-all duration-300 w-full sm:w-[calc(33%-1rem)] max-w-[350px] mx-auto z-10">
             <div className="absolute -top-3 sm:-top-4 left-1/2 transform -translate-x-1/2 bg-[#F0B35B] text-black text-xs sm:text-sm px-3 py-1 rounded-full font-bold">
               Mais Popular
             </div>
@@ -98,7 +98,7 @@ const Planos: React.FC<PlanosProps> = ({ commonAnimations }) => {
           {/* Card Plano Anual - Promoção Imperdível */}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className={`relative ${commonAnimations.cardGradient} p-4 sm:p-6 lg:p-8 rounded-lg border-2 border-[#F0B35B]/30 w-full sm:w-[calc(33%-1rem)] max-w-[300px] mx-auto ${commonAnimations.glowEffect}`}
+            className={`relative ${commonAnimations.cardGradient} p-4 sm:p-6 lg:p-8 rounded-lg border-2 border-[#F0B35B]/30 w-full sm:w-[calc(33%-1rem)] max-w-[350px] mx-auto ${commonAnimations.glowEffect}`}
           >
             <div className="absolute -top-3 -right-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs px-3 py-1 rounded-full font-bold animate-pulse">
               ⚡ 30% OFF ⚡
@@ -142,7 +142,7 @@ const Planos: React.FC<PlanosProps> = ({ commonAnimations }) => {
                 border border-[#F0B35B]
               ">
                 <div className="flex items-center justify-center">
-                  <span>COMPRAR AGORA</span>
+                  <span>Assinar Agora</span>
                   <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-2" />
                 </div>
               </motion.button>

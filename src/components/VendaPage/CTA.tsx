@@ -149,7 +149,10 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#252B3B] flex items-center justify-center text-[#F0B35B] shrink-0">
                     <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
-                  <span className="text-sm sm:text-base text-gray-300 font-medium">7 dias de garantia</span>
+                  <div className="flex flex-col">
+                    <span className="text-sm sm:text-base text-gray-300 font-medium">7 dias de garantia</span>
+                    <span className="text-xs text-gray-400">Teste sem compromisso</span>
+                  </div>
                 </motion.div>
                 <motion.div 
                   whileHover={{ scale: 1.02 }}
@@ -158,16 +161,22 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#252B3B] flex items-center justify-center text-[#F0B35B] shrink-0">
                     <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
-                  <span className="text-sm sm:text-base text-gray-300 font-medium">Suporte 24/7</span>
+                  <div className="flex flex-col">
+                    <span className="text-sm sm:text-base text-gray-300 font-medium">Suporte 24/7</span>
+                    <span className="text-xs text-gray-400">Atendimento prioritário</span>
+                  </div>
                 </motion.div>
                 <motion.div 
                   whileHover={{ scale: 1.02 }}
-                  className="flex items-center gap-2 sm:gap-3 bg-[#252B3B]/40 backdrop-blur-sm p-3 sm:p-4 rounded-xl border border-[#F0B35B]/10 sm:col-span-2 lg:col-span-1"
+                  className="flex items-center gap-2 sm:gap-3 bg-[#252B3B]/40 backdrop-blur-sm p-3 sm:p-4 rounded-xl border border-[#F0B35B]/10"
                 >
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#252B3B] flex items-center justify-center text-[#F0B35B] shrink-0">
                     <Users className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
-                  <span className="text-sm sm:text-base text-gray-300 font-medium">+1000 clientes ativos</span>
+                  <div className="flex flex-col">
+                    <span className="text-sm sm:text-base text-gray-300 font-medium">+1000 clientes ativos</span>
+                    <span className="text-xs text-gray-400">Barbearias de sucesso</span>
+                  </div>
                 </motion.div>
               </div>
             </div>
@@ -188,7 +197,7 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
               {/* Timer */}
               <div className="flex items-center gap-1.5 sm:gap-2 bg-[#252B3B]/40 backdrop-blur-sm px-2 sm:px-3 py-1.5 rounded-lg border border-[#F0B35B]/10">
                 <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-[#F0B35B] animate-pulse" />
-                <span className="text-[#F0B35B] text-xs sm:text-sm font-medium whitespace-nowrap">Promoção:</span>
+                <span className="text-[#F0B35B] text-xs sm:text-sm font-medium whitespace-nowrap">Oferta Especial:</span>
                 <div className="font-mono text-[#F0B35B] text-xs sm:text-sm font-bold tracking-wider flex items-center">
                   <span className="bg-[#1A1F2E] px-1.5 py-0.5 rounded">{timeLeft.hours.toString().padStart(2, '0')}</span>
                   <span className="mx-0.5">:</span>
@@ -201,7 +210,7 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
               {/* Vagas restantes */}
               <div className="flex items-center gap-1.5 sm:gap-2 bg-[#252B3B]/40 backdrop-blur-sm px-2 sm:px-3 py-1.5 rounded-lg border border-[#F0B35B]/10">
                 <Users className="w-3 h-3 sm:w-4 sm:h-4 text-[#F0B35B]" />
-                <span className="text-[#F0B35B] text-xs sm:text-sm font-medium">Apenas <span className="font-bold">3</span> vagas restantes!</span>
+                <span className="text-[#F0B35B] text-xs sm:text-sm font-medium">Últimas <span className="font-bold">3</span> vagas com desconto!</span>
               </div>
             </div>
             
@@ -222,7 +231,7 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
               >
                 <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-white/0 via-white/40 to-white/0 -skew-x-45 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
                 <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2">
-                  Garantir minha vaga
+                  Garantir Desconto Especial
                   <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
                 </span>
               </motion.button>

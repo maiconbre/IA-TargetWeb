@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Instagram, Facebook, Twitter, Mail, Phone, MapPin, ArrowRight, Clock, Users, Star } from 'lucide-react';
 
 interface FooterProps {
   commonAnimations: {
@@ -11,88 +13,156 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
+  const stats = [
+    { number: '2.5k+', label: 'Barbearias', icon: Users },
+    { number: '98%', label: 'Satisfação', icon: Star },
+    { number: '24/7', label: 'Suporte', icon: Clock },
+  ];
+
   return (
-    <footer className={`${commonAnimations.headerGradient} border-t border-[#F0B35B]/10 py-8`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Logo e Descrição */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold text-[#F0B35B]">BarberShop</h2>
-            <p className="text-gray-400 text-sm">
-              Sistema completo para gerenciamento de barbearias. Aumente seu faturamento e reduza a desorganização.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-[#F0B35B] transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-[#F0B35B] transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-                </svg>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-[#F0B35B] transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
-                </svg>
-              </a>
+    <footer className="relative overflow-hidden">
+      {/* Gradiente de fundo */}
+      <div className={`absolute inset-0 ${commonAnimations.headerGradient} opacity-95`} />
+      
+      {/* Elementos decorativos */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-64 h-64 bg-[#F0B35B]/5 rounded-full filter blur-3xl animate-pulse-slow" />
+        <div className="absolute bottom-20 right-10 w-72 h-72 bg-[#F0B35B]/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-2000" />
+      </div>
+
+      <div className="relative border-t border-[#F0B35B]/10">
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 lg:gap-12">
+            {/* Logo e Descrição */}
+            <div className="md:col-span-5 space-y-4 sm:space-y-6">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="space-y-4"
+              >
+                <h2 className="text-xl sm:text-2xl font-bold text-[#F0B35B]">BarberShop</h2>
+                <p className="text-[13px] sm:text-sm leading-relaxed text-gray-400">
+                  Transforme sua barbearia com nossa solução completa de gestão. 
+                  Aumente seu faturamento, reduza faltas e tenha mais tempo livre 
+                  com nosso sistema intuitivo e profissional.
+                </p>
+                
+                {/* Newsletter */}
+                <div className="pt-2 sm:pt-4">
+                  <h3 className="text-white text-xs sm:text-sm font-medium mb-2 sm:mb-3">Receba dicas exclusivas:</h3>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <input
+                      type="email"
+                      placeholder="Seu melhor e-mail"
+                      className="w-full sm:flex-1 bg-[#252B3B] border border-[#F0B35B]/20 rounded-lg px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-[#F0B35B]/50"
+                    />
+                    <button className="w-full sm:w-auto bg-[#F0B35B] hover:bg-[#E5A44D] text-black font-medium px-3 sm:px-4 py-2 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
+                      <span className="text-xs sm:text-sm">Enviar</span>
+                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Social Links */}
+                <div className="flex gap-3 sm:gap-4 pt-2">
+                  {[
+                    { icon: Instagram, link: '#' },
+                    { icon: Facebook, link: '#' },
+                    { icon: Twitter, link: '#' }
+                  ].map((social, index) => (
+                    <motion.a
+                      key={index}
+                      href={social.link}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#252B3B] border border-[#F0B35B]/20 flex items-center justify-center text-gray-400 hover:text-[#F0B35B] hover:border-[#F0B35B]/50 transition-all duration-300"
+                    >
+                      <social.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
             </div>
-          </div>
 
-          {/* Links Rápidos */}
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Links Rápidos</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-gray-400 hover:text-[#F0B35B] transition-colors duration-300">Início</a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-[#F0B35B] transition-colors duration-300">Recursos</a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-[#F0B35B] transition-colors duration-300">Planos</a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-[#F0B35B] transition-colors duration-300">Demonstração</a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-[#F0B35B] transition-colors duration-300">Contato</a>
-              </li>
-            </ul>
-          </div>
+            {/* Links e Contato */}
+            <div className="md:col-span-7">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+                {/* Links Rápidos */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4">Links Rápidos</h3>
+                  <ul className="space-y-2 sm:space-y-3">
+                    {[
+                      'Início',
+                      'Recursos',
+                      'Planos',
+                      'Demonstração',
+                      'Contato'
+                    ].map((item, index) => (
+                      <motion.li
+                        key={item}
+                        whileHover={{ x: 5 }}
+                        className="transform transition-transform duration-200"
+                      >
+                        <a href="#" className="text-gray-400 hover:text-[#F0B35B] transition-colors duration-300 flex items-center gap-1.5 sm:gap-2 group text-[13px] sm:text-sm">
+                          <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <span>{item}</span>
+                        </a>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
 
-          {/* Contato */}
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Contato</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#F0B35B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span className="text-gray-400">contato@barbershop.com.br</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#F0B35B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                <span className="text-gray-400">(21) 99776-0398</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#F0B35B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span className="text-gray-400">Rio de Janeiro, RJ</span>
-              </li>
-            </ul>
+                {/* Contato */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <h3 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4">Contato</h3>
+                  <ul className="space-y-3 sm:space-y-4">
+                    {[
+                      { icon: Mail, text: 'contato@barbershop.com.br' },
+                      { icon: Phone, text: '(21) 99776-0398' },
+                      { icon: MapPin, text: 'Rio de Janeiro, RJ' }
+                    ].map((item, index) => (
+                      <motion.li
+                        key={index}
+                        whileHover={{ scale: 1.02 }}
+                        className="flex items-center gap-2 sm:gap-3 group"
+                      >
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#252B3B] border border-[#F0B35B]/20 flex items-center justify-center group-hover:border-[#F0B35B]/50 transition-all duration-300">
+                          <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F0B35B]" />
+                        </div>
+                        <span className="text-[13px] sm:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">{item.text}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-[#F0B35B]/10 text-center">
-          <p className="text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} BarberShop. Todos os direitos reservados.
-          </p>
+        {/* Copyright */}
+        <div className="border-t border-[#F0B35B]/10">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
+              <p className="text-gray-500 text-[11px] sm:text-sm text-center sm:text-left">
+                &copy; {new Date().getFullYear()} BarberShop. Todos os direitos reservados.
+              </p>
+              <div className="flex gap-4 sm:gap-6">
+                <a href="#" className="text-gray-500 hover:text-gray-400 text-[11px] sm:text-sm">Termos de Uso</a>
+                <a href="#" className="text-gray-500 hover:text-gray-400 text-[11px] sm:text-sm">Privacidade</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
