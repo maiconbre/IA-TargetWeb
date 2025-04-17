@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Clock, Calendar, Users, BarChart, ArrowRight } from 'lucide-react';
+import { Clock, Calendar, BarChart, ArrowRight } from 'lucide-react';
 
 const Features: React.FC = () => {
   return (
