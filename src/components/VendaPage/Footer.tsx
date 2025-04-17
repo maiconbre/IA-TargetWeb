@@ -28,7 +28,7 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 lg:gap-12">
-            {/* Logo e Descrição */}
+          {/* Logo e Descrição */}
             <div className="md:col-span-5 space-y-4 sm:space-y-6">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -56,8 +56,8 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
                       <span className="text-xs sm:text-sm">Enviar</span>
                       <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
-                  </div>
-                </div>
+            </div>
+          </div>
 
                 {/* Social Links */}
                 <div className="flex gap-3 sm:gap-4 pt-2">
@@ -78,7 +78,7 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
                   ))}
                 </div>
               </motion.div>
-            </div>
+          </div>
 
             {/* Links e Contato */}
             <div className="md:col-span-7">
@@ -112,7 +112,7 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
                   </ul>
                 </motion.div>
 
-                {/* Contato */}
+          {/* Contato */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
                         <span className="text-[13px] sm:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">{item.text}</span>
                       </motion.li>
                     ))}
-                  </ul>
+            </ul>
                 </motion.div>
               </div>
             </div>
@@ -149,8 +149,8 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
           <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
               <p className="text-gray-500 text-[11px] sm:text-sm text-center sm:text-left">
-                &copy; {new Date().getFullYear()} BarberShop. Todos os direitos reservados.
-              </p>
+            &copy; {new Date().getFullYear()} BarberShop. Todos os direitos reservados.
+          </p>
               <div className="flex gap-4 sm:gap-6">
                 <a href="#" className="text-gray-500 hover:text-gray-400 text-[11px] sm:text-sm">Termos de Uso</a>
                 <a href="#" className="text-gray-500 hover:text-gray-400 text-[11px] sm:text-sm">Privacidade</a>

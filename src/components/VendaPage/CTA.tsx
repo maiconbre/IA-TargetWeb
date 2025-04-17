@@ -191,57 +191,61 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
           animate={{ opacity: 1, y: 0 }}
           className="fixed bottom-0 left-0 right-0 z-40 bg-[#1A1F2E]/95 backdrop-blur-md border-t border-[#F0B35B]/10 shadow-lg"
         >
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2 sm:py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3">
-            {/* Timer e vagas restantes */}
-            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 w-full sm:w-auto">
-              {/* Timer */}
-              <div className="flex items-center gap-1.5 sm:gap-2 bg-[#252B3B]/40 backdrop-blur-sm px-2 sm:px-3 py-1.5 rounded-lg border border-[#F0B35B]/10">
-                <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-[#F0B35B] animate-pulse" />
-                <span className="text-[#F0B35B] text-xs sm:text-sm font-medium whitespace-nowrap">Oferta Especial:</span>
-                <div className="font-mono text-[#F0B35B] text-xs sm:text-sm font-bold tracking-wider flex items-center">
-                  <span className="bg-[#1A1F2E] px-1.5 py-0.5 rounded">{timeLeft.hours.toString().padStart(2, '0')}</span>
-                  <span className="mx-0.5">:</span>
-                  <span className="bg-[#1A1F2E] px-1.5 py-0.5 rounded">{timeLeft.minutes.toString().padStart(2, '0')}</span>
-                  <span className="mx-0.5">:</span>
-                  <span className="bg-[#1A1F2E] px-1.5 py-0.5 rounded">{timeLeft.seconds.toString().padStart(2, '0')}</span>
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2 sm:py-2.5">
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+              {/* Timer e vagas restantes em uma linha */}
+              <div className="w-full sm:w-auto grid grid-cols-2 sm:flex items-center gap-2 sm:gap-3">
+                {/* Timer */}
+                <div className="flex items-center gap-1.5 sm:gap-2 bg-[#252B3B]/40 backdrop-blur-sm px-2 sm:px-3 py-1.5 rounded-lg border border-[#F0B35B]/10">
+                  <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-[#F0B35B] animate-pulse" />
+                  <div className="flex items-center gap-1">
+                    <span className="text-[#F0B35B] text-[11px] sm:text-sm font-medium whitespace-nowrap hidden sm:inline">Oferta Especial:</span>
+                    <div className="font-mono text-[#F0B35B] text-[11px] sm:text-sm font-bold tracking-wider flex items-center">
+                      <span className="bg-[#1A1F2E] px-1.5 py-0.5 rounded">{timeLeft.hours.toString().padStart(2, '0')}</span>
+                      <span className="mx-0.5">:</span>
+                      <span className="bg-[#1A1F2E] px-1.5 py-0.5 rounded">{timeLeft.minutes.toString().padStart(2, '0')}</span>
+                      <span className="mx-0.5">:</span>
+                      <span className="bg-[#1A1F2E] px-1.5 py-0.5 rounded">{timeLeft.seconds.toString().padStart(2, '0')}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Vagas restantes */}
+                <div className="flex items-center gap-1.5 sm:gap-2 bg-[#252B3B]/40 backdrop-blur-sm px-2 sm:px-3 py-1.5 rounded-lg border border-[#F0B35B]/10">
+                  <Users className="w-3 h-3 sm:w-4 sm:h-4 text-[#F0B35B]" />
+                  <span className="text-[#F0B35B] text-[11px] sm:text-sm font-medium">Últimas <span className="font-bold">3</span> vagas!</span>
                 </div>
               </div>
               
-              {/* Vagas restantes */}
-              <div className="flex items-center gap-1.5 sm:gap-2 bg-[#252B3B]/40 backdrop-blur-sm px-2 sm:px-3 py-1.5 rounded-lg border border-[#F0B35B]/10">
-                <Users className="w-3 h-3 sm:w-4 sm:h-4 text-[#F0B35B]" />
-                <span className="text-[#F0B35B] text-xs sm:text-sm font-medium">Últimas <span className="font-bold">3</span> vagas com desconto!</span>
+              {/* Botão CTA */}
+              <div className="w-full sm:w-auto flex items-center gap-2 sm:gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="
+                    relative overflow-hidden w-full sm:w-auto
+                    px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-[#F0B35B] to-[#D4943D] text-black rounded-lg
+                    font-bold text-xs sm:text-sm
+                    transition-all duration-300
+                    shadow-[0_0_10px_rgba(240,179,91,0.2)]
+                    hover:shadow-[0_0_15px_rgba(240,179,91,0.3)]
+                    group
+                  "
+                >
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-white/0 via-white/40 to-white/0 -skew-x-45 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+                  <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2">
+                    Garantir Desconto Especial
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </motion.button>
+                
+                <button 
+                  onClick={() => setShowFixedBar(false)}
+                  className="text-gray-400 hover:text-white transition-colors p-1 shrink-0"
+                >
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
               </div>
-            </div>
-            
-            {/* Botão CTA */}
-            <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="
-                  relative overflow-hidden w-full sm:w-auto
-                  px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-[#F0B35B] to-[#D4943D] text-black rounded-lg
-                  font-bold text-xs sm:text-sm
-                  transition-all duration-300
-                  shadow-[0_0_10px_rgba(240,179,91,0.2)]
-                  hover:shadow-[0_0_15px_rgba(240,179,91,0.3)]
-                  group
-                "
-              >
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-white/0 via-white/40 to-white/0 -skew-x-45 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
-                <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2">
-                  Garantir Desconto Especial
-                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </motion.button>
-              
-              <button 
-                onClick={() => setShowFixedBar(false)}
-                className="text-gray-400 hover:text-white transition-colors p-1"
-              >
-                <X className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
             </div>
           </div>
         </motion.div>
