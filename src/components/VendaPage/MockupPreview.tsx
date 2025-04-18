@@ -33,7 +33,7 @@ const MockupPreview: React.FC<MockupPreviewProps> = () => {
       id: 1,
       title: "Agendamento Simplificado",
       description: "Seus clientes podem agendar serviços com apenas alguns cliques, escolhendo data, horário e profissional.",
-      image: "/img/mockups/agendamento.jpg",
+      image: "/images/step1.gif",
       icon: Calendar,
       color: "from-green-500 to-green-600"
     },
