@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Calendar, Users, BarChart, Settings } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar, Users, BarChart } from 'lucide-react';
 
 interface MockupSlide {
   id: number;
