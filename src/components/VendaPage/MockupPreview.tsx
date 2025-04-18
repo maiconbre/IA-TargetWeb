@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight,  Calendar, Users, BarChart, Settings } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar, Users, BarChart, Settings } from 'lucide-react';
 
 interface MockupSlide {
   id: number;
@@ -41,24 +41,24 @@ const MockupPreview: React.FC<MockupPreviewProps> = () => {
       id: 2,
       title: "Gestão de Clientes",
       description: "Acompanhe o histórico completo dos seus clientes, preferências e agendamentos anteriores.",
-      image: "/img/mockups/clientes.jpg",
+      image: "/images/step2.PNG",
       icon: Users,
       color: "from-blue-500 to-blue-600"
     },
     {
       id: 3,
-      title: "Dashboard Intuitivo",
-      description: "Visualize métricas importantes do seu negócio em um painel completo e fácil de entender.",
-      image: "/img/mockups/dashboard.jpg",
-      icon: BarChart,
+      title: "Agenda Inteligente",
+      description: "Gerencie seus agendamentos com facilidade, com visualização diária, semanal e mensal.",
+      image: "/images/agenda.PNG",
+      icon: Calendar,
       color: "from-purple-500 to-purple-600"
     },
     {
       id: 4,
-      title: "Configurações Personalizadas",
-      description: "Adapte o sistema às necessidades da sua barbearia com configurações flexíveis.",
-      image: "/img/mockups/configuracoes.jpg",
-      icon: Settings,
+      title: "Análise de Desempenho",
+      description: "Acompanhe métricas importantes do seu negócio com gráficos e relatórios detalhados.",
+      image: "/images/analise.PNG",
+      icon: BarChart,
       color: "from-amber-500 to-amber-600"
     }
   ];
@@ -246,20 +246,20 @@ const MockupPreview: React.FC<MockupPreviewProps> = () => {
                       className="w-full h-full"
                     >
                       {/* Imagem do slide atual */}
-                      <div className="w-full h-full bg-gradient-to-br from-[#1A1F2E] to-[#0D121E] flex items-center justify-center">
-                        <div className="w-full h-full relative">
-                          {/* Placeholder para a imagem real */}
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className={`w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br ${slides[currentSlide].color} flex items-center justify-center`}>
-                              {React.createElement(slides[currentSlide].icon, { className: "w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-white" })}
-                            </div>
-                          </div>
-                          
-                          {/* Texto indicativo */}
-                          <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 left-0 right-0 text-center text-white text-[10px] xs:text-xs opacity-70">
-                            Imagem ilustrativa
-                          </div>
-                        </div>
+                      <div className="w-full h-full relative">
+                        {slides[currentSlide].image.endsWith('.gif') ? (
+                          <img 
+                            src={slides[currentSlide].image} 
+                            alt={slides[currentSlide].title}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <img 
+                            src={slides[currentSlide].image} 
+                            alt={slides[currentSlide].title}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
                       </div>
                     </motion.div>
                   </AnimatePresence>
