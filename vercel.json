@@ -12,12 +12,12 @@
   ],
   "rewrites": [
     {
-      "source": "/assets/(.*)",
-      "destination": "/assets/$1"
+      "source": "/:path*.:ext*",
+      "destination": "/:path*.:ext*"
     },
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "destination": "/index.html"
     }
   ]
-} 
+}
