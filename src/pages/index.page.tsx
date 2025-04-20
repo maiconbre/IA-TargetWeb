@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { Helmet } from 'react-helmet';
 import { useCountdown } from '../hooks/useCountdown';
 import { UserPlus, Calendar, BarChart } from 'lucide-react';
 import {
@@ -13,6 +12,7 @@ import {
   Footer,
   MockupPreview
 } from '../components/VendaPage';
+import { Helmet } from 'react-helmet';
 
 // Configuração da promoção relâmpago
 const PROMO_END_TIME = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 horas
@@ -206,4 +206,4 @@ const VendaPage2: React.FC = () => {
   );
 };
 
-export default VendaPage2;
+export const Page = VendaPage2;
