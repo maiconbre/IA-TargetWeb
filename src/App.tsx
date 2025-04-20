@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import GeminiChatbot from './components/GeminiChatbot/GeminiChatbot';
-import VendaPage2 from './pages/VendaPage2';
+import { Page }  from './pages/index.page';
 import './index.css';
 import './additional-styles.css';
 
@@ -79,7 +79,7 @@ Você é Ana, a assistente virtual inteligente da TargetWeb, especialmente trein
           transition={pageTransition.transition}
         >
           <Routes location={location}>
-            <Route path="/" element={<VendaPage2 />}/>
+            <Route path="/" element={<Page />}/>
           </Routes>
         </motion.div>
       </AnimatePresence>
