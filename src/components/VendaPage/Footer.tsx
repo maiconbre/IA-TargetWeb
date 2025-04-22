@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Parallax } from 'react-scroll-parallax';
 import { Instagram, Facebook, Twitter, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 
 interface FooterProps {
@@ -20,8 +21,10 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
       
       {/* Elementos decorativos */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-[#F0B35B]/5 rounded-full filter blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-20 right-10 w-72 h-72 bg-[#F0B35B]/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-2000" />
+        <Parallax translateY={[-15, 15]} className="h-full">
+          <div className="absolute top-20 left-10 w-64 h-64 bg-[#F0B35B]/5 rounded-full filter blur-3xl animate-pulse-slow" />
+          <div className="absolute bottom-20 right-10 w-72 h-72 bg-[#F0B35B]/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-2000" />
+        </Parallax>
       </div>
 
       <div className="relative border-t border-[#F0B35B]/10">
@@ -30,6 +33,7 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 lg:gap-12">
           {/* Logo e Descrição */}
             <div className="md:col-span-5 space-y-4 sm:space-y-6">
+              <Parallax speed={-5}>
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -78,10 +82,12 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
                   ))}
                 </div>
               </motion.div>
-          </div>
+              </Parallax>
+            </div>
 
             {/* Links e Contato */}
             <div className="md:col-span-7">
+              <Parallax speed={-2}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                 {/* Links Rápidos */}
                 <motion.div
@@ -140,12 +146,14 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
             </ul>
                 </motion.div>
               </div>
+              </Parallax>
             </div>
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-[#F0B35B]/10">
+        <Parallax speed={1}>
+          <div className="border-t border-[#F0B35B]/10">
           <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
               <p className="text-gray-500 text-[11px] sm:text-sm text-center sm:text-left">
@@ -157,7 +165,8 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
               </div>
             </div>
           </div>
-        </div>
+          </div>
+        </Parallax>
       </div>
     </footer>
   );

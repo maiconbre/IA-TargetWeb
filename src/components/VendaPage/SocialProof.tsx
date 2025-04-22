@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { Parallax } from 'react-scroll-parallax';
 import { Star, ArrowRight, Quote } from 'lucide-react';
 
 const SocialProof: React.FC = () => {
@@ -111,40 +112,44 @@ const SocialProof: React.FC = () => {
     <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#1A1F2E] to-[#0D121E] relative overflow-hidden">
       {/* Elementos decorativos de fundo */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-[#F0B35B]/5 rounded-full filter blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-20 right-10 w-72 h-72 bg-[#F0B35B]/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-2000"></div>
+        <Parallax translateY={[-15, 15]} className="h-full">
+          <div className="absolute top-20 left-10 w-64 h-64 bg-[#F0B35B]/5 rounded-full filter blur-3xl animate-pulse-slow"></div>
+          <div className="absolute bottom-20 right-10 w-72 h-72 bg-[#F0B35B]/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-2000"></div>
+        </Parallax>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Título da seção com animação */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12"
-        >
+        <Parallax speed={-5}>
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#F0B35B]/5 rounded-full border border-[#F0B35B]/10 mb-4"
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8 sm:mb-12"
           >
-            <span className="text-[#F0B35B] text-sm">O que dizem nossos usuários</span>
-            <ArrowRight className="w-4 h-4 text-[#F0B35B]" />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#F0B35B]/5 rounded-full border border-[#F0B35B]/10 mb-4"
+            >
+              <span className="text-[#F0B35B] text-sm">O que dizem nossos usuários</span>
+              <ArrowRight className="w-4 h-4 text-[#F0B35B]" />
+            </motion.div>
+            
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400">
+              Histórias de <span className="text-[#F0B35B]">Sucesso</span>
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+              Veja o que outros profissionais estão achando do nosso sistema
+            </p>
           </motion.div>
-          
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400">
-            Histórias de <span className="text-[#F0B35B]">Sucesso</span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
-            Veja o que outros profissionais estão achando do nosso sistema
-          </p>
-        </motion.div>
+        </Parallax>
 
         {/* Carousel de depoimentos */}
-        <div className="relative w-full overflow-hidden mask-image-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] group">
+        <Parallax speed={2} className="relative w-full overflow-hidden mask-image-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] group">
           <motion.div
             ref={carouselRef}
             className="flex gap-20 md:gap-12"
@@ -231,15 +236,16 @@ const SocialProof: React.FC = () => {
             </motion.div>
             ))}
           </motion.div>
-        </div>
+        </Parallax>
 
         {/* Chamada para ação */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-8 sm:mt-12 text-center"
-        >
+        <Parallax speed={3}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-8 sm:mt-12 text-center"
+          >
           <p className="text-gray-400 text-sm sm:text-base mb-4">
             Junte-se a milhares de profissionais que já estão transformando seus negócios
           </p>
@@ -251,7 +257,8 @@ const SocialProof: React.FC = () => {
             Começar Agora
             <ArrowRight className="w-4 h-4" />
           </motion.button>
-        </motion.div>
+          </motion.div>
+        </Parallax>
       </div>
     </section>
   );

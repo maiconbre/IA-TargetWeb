@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Parallax } from 'react-scroll-parallax';
 import Mockup from './Mockup';
 
 interface HeroProps {
@@ -29,9 +30,11 @@ const Hero: React.FC<HeroProps> = ({ heroRef, commonAnimations }) => {
         style={{ opacity, scale }}
         className="absolute inset-0 z-0"
       >
+        <Parallax translateY={["-8%", "8%"]} easing="easeInOutQuad">
         <div className="absolute top-20 left-10 w-64 h-64 bg-[#F0B35B]/5 rounded-full filter blur-3xl animate-pulse-slow"></div>
         <div className="absolute bottom-20 right-10 w-72 h-72 bg-[#F0B35B]/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-2000"></div>
         <div className="absolute top-1/3 right-1/4 w-40 h-40 bg-[#F0B35B]/5 rounded-full filter blur-3xl animate-float"></div>
+        </Parallax>
 
         {/* Linhas decorativas com gradiente melhorado */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#F0B35B]/30 to-transparent"></div>
@@ -40,16 +43,17 @@ const Hero: React.FC<HeroProps> = ({ heroRef, commonAnimations }) => {
 
       <div className="container mx-auto px-3 sm:px-6 lg:px-2 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[42%_58%] gap-4 lg:gap-12 items-start sm:items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              type: "spring",
-              stiffness: 50
-            }}
-            className="max-w-2xl mx-auto text-center lg:text-left space-y-4 sm:space-y-6 pt-4 sm:pt-0 lg:pr-6"
-          >
+          <Parallax speed={-2} translateY={["-10%", "10%"]} easing="easeInOutQuad">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                type: "spring",
+                stiffness: 50
+              }}
+              className="max-w-2xl mx-auto text-center lg:text-left space-y-4 sm:space-y-6 pt-4 sm:pt-0 lg:pr-6"
+            >
             {/* Tag com animação melhorada */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-3">
               <motion.div
@@ -188,10 +192,12 @@ const Hero: React.FC<HeroProps> = ({ heroRef, commonAnimations }) => {
                 </motion.div>
               </div>
             </motion.div>
-          </motion.div>
+            </motion.div>
+          </Parallax>
 
           {/* Lado direito - Componente Mockup com animação de entrada */}
-          <motion.div 
+          <Parallax speed={2} translateY={["-5%", "5%"]} easing="easeInOutQuad">
+            <motion.div 
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
@@ -210,8 +216,9 @@ const Hero: React.FC<HeroProps> = ({ heroRef, commonAnimations }) => {
               </div>
             </motion.div>
 
-            <Mockup />
-          </motion.div>
+              <Mockup />
+            </motion.div>
+          </Parallax>
         </div>
       </div>
     </section>

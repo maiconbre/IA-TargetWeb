@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Parallax } from 'react-scroll-parallax';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 
 interface FAQItemProps {
@@ -77,18 +78,21 @@ const FAQ: React.FC = () => {
     <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#1A1F2E] to-[#0D121E] relative overflow-hidden">
       {/* Elementos decorativos de fundo */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-20 left-4 sm:left-10 w-48 sm:w-64 h-48 sm:h-64 bg-[#F0B35B]/5 rounded-full filter blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-20 right-4 sm:right-10 w-52 sm:w-72 h-52 sm:h-72 bg-[#F0B35B]/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-2000"></div>
+        <Parallax translateY={[-20, 20]} className="h-full">
+          <div className="absolute top-20 left-4 sm:left-10 w-48 sm:w-64 h-48 sm:h-64 bg-[#F0B35B]/5 rounded-full filter blur-3xl animate-pulse-slow"></div>
+          <div className="absolute bottom-20 right-4 sm:right-10 w-52 sm:w-72 h-52 sm:h-72 bg-[#F0B35B]/10 rounded-full filter blur-3xl animate-pulse-slow animation-delay-2000"></div>
+        </Parallax>
       </div>
 
       <div className="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12"
-        >
+        <Parallax speed={-5}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8 sm:mb-12"
+          >
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -106,9 +110,10 @@ const FAQ: React.FC = () => {
           <p className="text-gray-300 max-w-2xl mx-auto text-xs sm:text-base px-2">
             Tire suas principais dúvidas sobre nossa plataforma
           </p>
-        </motion.div>
+          </motion.div>
+        </Parallax>
 
-        <div className="space-y-3 sm:space-y-4">
+        <Parallax speed={2} className="space-y-3 sm:space-y-4">
           {faqs.map((faq, index) => (
             <FAQItem
               key={index}
@@ -118,7 +123,7 @@ const FAQ: React.FC = () => {
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
             />
           ))}
-        </div>
+        </Parallax>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Parallax } from 'react-scroll-parallax';
 import { ArrowRight, CheckCircle, Clock, Users, Zap } from 'lucide-react';
 
 interface CTAProps {
@@ -73,24 +74,27 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
 
             {/* Main Content */}
             <div className="text-center space-y-6 sm:space-y-8">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
-                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400 mb-2 sm:mb-3">
-                  Eleve sua Barbearia ao
-                </span>
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#F0B35B] to-[#D4943D]">
-                  Próximo Nível
-                </span>
-              </h2>
+              <Parallax speed={-5}>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+                  <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400 mb-2 sm:mb-3">
+                    Eleve sua Barbearia ao
+                  </span>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#F0B35B] to-[#D4943D]">
+                    Próximo Nível
+                  </span>
+                </h2>
 
-              <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed px-4">
-                Junte-se a centenas de barbearias que já estão revolucionando
-                <br className="hidden sm:block" /> sua gestão e aumentando seus lucros
-              </p>
+                <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed px-4">
+                  Junte-se a centenas de barbearias que já estão revolucionando
+                  <br className="hidden sm:block" /> sua gestão e aumentando seus lucros
+                </p>
+              </Parallax>
 
               {/* CTA Buttons and Timer */}
-              <motion.div
-                className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-3xl mx-auto px-4"
-                variants={{
+              <Parallax speed={-2}>
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-3xl mx-auto px-4"
+                  variants={{
                   hidden: { opacity: 0 },
                   show: {
                     opacity: 1,
@@ -138,10 +142,12 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
                     <div className="text-[#F0B35B] font-bold text-base sm:text-lg">{safeSlotsLeft}</div>
                   </div>
                 </div>
-              </motion.div>
+                  </motion.div>
+                </Parallax>
 
-              {/* Features Grid */}
-              <div className="pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto px-4">
+                {/* Features Grid */}
+                <Parallax speed={2}>
+                  <div className="pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto px-4">
                 <motion.div 
                   whileHover={{ scale: 1.02 }}
                   className="flex items-center gap-2 sm:gap-3 bg-[#252B3B]/40 backdrop-blur-sm p-3 sm:p-4 rounded-xl border border-[#F0B35B]/10"
@@ -178,7 +184,8 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
                     <span className="text-xs text-gray-400">Barbearias de sucesso</span>
                   </div>
                 </motion.div>
-              </div>
+                  </div>
+                </Parallax>
             </div>
           </motion.div>
         </div>

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { HelmetProvider } from 'react-helmet-async';
+import { ParallaxProvider } from 'react-scroll-parallax';
 import GeminiChatbot from './components/GeminiChatbot/GeminiChatbot';
 import VendaPage2 from './pages/VendaPage2';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -103,9 +104,11 @@ Você é Ana, a assistente virtual inteligente da TargetWeb, especialmente trein
 function App() {
   return (
     <HelmetProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
+      <ParallaxProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </ParallaxProvider>
     </HelmetProvider>
   );
 }
