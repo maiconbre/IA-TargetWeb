@@ -224,7 +224,7 @@ const MockupPreview: React.FC<MockupPreviewProps> = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="w-full max-w-[240px] xs:max-w-[280px] sm:max-w-[320px] lg:max-w-[360px] xl:max-w-[400px] relative order-1 lg:order-2"
+              className="w-full max-w-[240px] xs:max-w-[280px] sm:max-w-[300px] relative order-1 lg:order-2"
             >
               {/* Frame do iPhone */}
               <div className="relative mx-auto">
@@ -287,7 +287,7 @@ const MockupPreview: React.FC<MockupPreviewProps> = () => {
               whileHover={{ scale: 1.1, opacity: 1 }}
               whileTap={{ scale: 0.9 }}
               onClick={nextSlide}
-              className="pointer-events-auto opacity-50 hover:opacity-100 transition-opacity bg-[#1A1F2E]/50 backdrop-blur-sm p-2 rounded-full border border-[#F0B35B]/10 text-[#F0B35B] shadow-lg mr-4 lg:mr-20"
+              className="pointer-events-auto opacity-50 hover:opacity-100 transition-opacity bg-[#1A1F2E]/50 backdrop-blur-sm p-2 rounded-full border border-[#F0B35B]/10 text-[#F0B35B] shadow-lg mr-4 lg:mr-40"
               aria-label="Próximo slide"
             >
               <ChevronRight className="w-6 h-6" />

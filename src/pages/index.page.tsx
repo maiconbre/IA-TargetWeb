@@ -10,7 +10,9 @@ import {
   CTA,
   Formulario,
   Footer,
-  MockupPreview
+  MockupPreview,
+  FAQ,
+  SocialProof
 } from '../components/VendaPage';
 import { Helmet } from 'react-helmet';
 
@@ -189,6 +191,8 @@ const VendaPage2: React.FC = () => {
           slotsLeft={SLOTS_LEFT} 
         />
         <Formulario commonAnimations={commonAnimations} />
+        <SocialProof />
+        <FAQ />
         <Footer commonAnimations={commonAnimations} />
 
         {/* Modal de demonstração */}

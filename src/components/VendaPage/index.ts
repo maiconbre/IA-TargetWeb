@@ -9,3 +9,7 @@ export { default as Features } from './Features';
 export { default as CTA } from './CTA';
 export { default as Formulario } from './Formulario';
 export { default as Footer } from './Footer';
+export { default as FAQ } from './FAQ';
+export { default as SocialProof } from './SocialProof';
+export { default as TermsOfUse } from '../../pages/TermsOfUse';
+export { default as PrivacyPolicy } from '../../pages/PrivacyPolicy';

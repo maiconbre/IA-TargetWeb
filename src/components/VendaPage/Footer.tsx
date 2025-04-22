@@ -14,7 +14,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
   return (
-    <footer className="relative overflow-hidden">
+    <footer className="relative overflow-hidden pb-12">
       {/* Gradiente de fundo */}
       <div className={`absolute inset-0 ${commonAnimations.headerGradient} opacity-95`} />
       
@@ -152,8 +152,8 @@ const Footer: React.FC<FooterProps> = ({ commonAnimations }) => {
             &copy; {new Date().getFullYear()} BarberShop. Todos os direitos reservados.
           </p>
               <div className="flex gap-4 sm:gap-6">
-                <a href="#" className="text-gray-500 hover:text-gray-400 text-[11px] sm:text-sm">Termos de Uso</a>
-                <a href="#" className="text-gray-500 hover:text-gray-400 text-[11px] sm:text-sm">Privacidade</a>
+                <a href="/terms-of-use" className="text-gray-500 hover:text-gray-400 text-[11px] sm:text-sm">Termos de Uso</a>
+                <a href="/privacy-policy" className="text-gray-500 hover:text-gray-400 text-[11px] sm:text-sm">Privacidade</a>
               </div>
             </div>
           </div>

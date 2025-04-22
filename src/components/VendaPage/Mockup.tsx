@@ -10,30 +10,24 @@ const Mockup: React.FC = () => {
       className="relative"
     >
       <motion.div
-        whileHover={{ scale: 1.02, rotate: -1 }}
         transition={{ type: "spring", stiffness: 300 }}
-        className="relative w-full aspect-video bg-[#1A1F2E] rounded-xl overflow-hidden border border-[#F0B35B]/20 shadow-2xl transform perspective-1000"
+        className="relative w-full aspect-video rounded-xl overflow-hidden "
       >
-        {/* Efeito de brilho nas bordas */}
-        <div className="absolute inset-0 rounded-xl border border-[#F0B35B]/30 filter blur-[2px] z-0"></div>
-
-        {/* Overlay gradiente */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D121E] via-[#0D121E]/50 to-transparent opacity-70 z-20"></div>
-
         {/* Imagem de demonstração */}
         <img
-          src="/images/demofoto.webp"
+          src="/images/mockup.png"
           alt="Interface do sistema BarberShop"
-          className="absolute inset-0 w-full h-full object-cover z-10"
+          className="absolute inset-0 w-full h-full mb-8 object-cover z-10"
         />
 
-        {/* Elementos flutuantes */}
-        <div className="absolute inset-0 z-30 flex items-end p-6">
+        {/* Elementos flutuantes - Posicionados abaixo */}
+        {/* Ajustado 'inset-0 flex items-end p-6' para 'bottom-0 left-0 right-0 p-4' */}
+        <div className="absolute bottom-0 left-0 right-0 z-30 "> 
           <div className="w-full">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full bg-[#F0B35B] flex items-center justify-center text-black font-bold text-sm">BO</div>
               <div>
-                <div className="text-white font-medium">Barber Online</div>
+                <div className="text-white font-sm">Barber Online</div>
                 <div className="text-xs text-gray-300">Sistema de Gestão</div>
               </div>
             </div>

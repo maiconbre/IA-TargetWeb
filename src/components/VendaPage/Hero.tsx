@@ -121,7 +121,7 @@ const Hero: React.FC<HeroProps> = ({ heroRef, commonAnimations }) => {
                   className="flex items-center gap-1 text-red-400/90"
                 >
                   <span className="text-base min-w-[10px]">❌</span>
-                  <p className="text-[12px] sm:text-sm">Perdendo tempo respondendo WhatsApp o dia todo?</p>
+                  <p className="text-[12px] sm:text-sm">Barbeiros deixam até 45% do lucro escapar por gestão falha.</p>
                 </motion.div>
               </div>
 

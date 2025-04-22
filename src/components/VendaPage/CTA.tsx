@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Clock, Users, X, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle, Clock, Users, Zap } from 'lucide-react';
 
 interface CTAProps {
   hours: number;
@@ -243,7 +243,6 @@ const CTA: React.FC<CTAProps> = ({ hours, minutes, seconds, slotsLeft }) => {
                   onClick={() => setShowFixedBar(false)}
                   className="text-gray-400 hover:text-white transition-colors p-1 shrink-0"
                 >
-                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
             </div>
