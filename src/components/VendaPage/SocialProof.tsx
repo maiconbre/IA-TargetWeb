@@ -174,7 +174,7 @@ const SocialProof: React.FC = () => {
               if (!isPaused) setIsPaused(true);
             }}
             onDragStart={handleInteractionStart}
-            onDragEnd={(e, info) => {
+            onDragEnd={(_, info) => {
               handleInteractionEnd();
               const velocity = Math.abs(info.velocity.x);
               if (velocity > 100) {
