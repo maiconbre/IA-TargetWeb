@@ -56,8 +56,7 @@
     "terser": "^5.39.0",
     "typescript": "^5.4.2",
     "typescript-eslint": "^8.3.0",
-    "vike": "^0.4.142",
     "vite": "^6.2.6",
-    "vite-ssg": "^26.1.1"
+    "vite-plugin-pwa": "^1.0.0"
   }
 }

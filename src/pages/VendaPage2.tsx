@@ -210,4 +210,4 @@ const VendaPage2: React.FC = () => {
   );
 };
 
-export const Page = VendaPage2;
+export default VendaPage2;
