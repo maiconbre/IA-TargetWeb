@@ -57,7 +57,7 @@ const FAQ: React.FC = () => {
     },
     {
       question: "Quanto tempo leva para implementar o sistema?",
-      answer: "A implementação é rápida e pode ser feita em menos de 1 hora. Nossa equipe oferece suporte completo durante todo o processo, garantindo que você e sua equipe estejam prontos para usar todas as funcionalidades."
+      answer: "A implementação pode ser feita em menos de 48 horas. Nossa equipe oferece suporte completo durante todo o processo, garantindo que você e sua equipe estejam prontos para usar todas as funcionalidades."
     },
     {
       question: "O sistema funciona para múltiplos profissionais?",
