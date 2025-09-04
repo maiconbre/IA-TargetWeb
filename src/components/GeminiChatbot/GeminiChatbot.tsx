@@ -15,20 +15,45 @@ interface GeminiChatbotProps {
   primaryColor?: string;
 }
 
+// Função para remover formatação markdown
+const removeMarkdownFormatting = (text: string): string => {
+  return text
+    // Remover negrito (**texto** ou __texto__)
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/__(.*?)__/g, '$1')
+    // Remover itálico (*texto* ou _texto_)
+    .replace(/\*(.*?)\*/g, '$1')
+    .replace(/_(.*?)_/g, '$1')
+    // Remover código (`texto`)
+    .replace(/`(.*?)`/g, '$1')
+    // Remover títulos (# texto)
+    .replace(/^#{1,6}\s+/gm, '')
+    // Remover listas (- texto ou * texto)
+    .replace(/^[\s]*[-*+]\s+/gm, '• ')
+    // Remover links markdown [texto](url)
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Limpar espaços extras
+    .replace(/\n\s*\n/g, '\n')
+    .trim();
+};
+
 // Função melhorada para detectar e transformar links em elementos clicáveis
 const processMessageWithLinks = (text: string): React.ReactNode => {
+  // Primeiro, remover formatação markdown se for mensagem do bot
+  const cleanText = text;
+  
   // Regex aprimorada para capturar diferentes tipos de links
   const linkRegex = /\b(https?:\/\/\S+|wa\.me\/\d+)\b/g;
   
   // Se não houver links, retornar o texto original
-  if (!linkRegex.test(text)) {
-    return text;
+  if (!linkRegex.test(cleanText)) {
+    return cleanText;
   }
   
   // Encontrar todas as ocorrências de links
-  const matches = Array.from(text.matchAll(linkRegex));
+  const matches = Array.from(cleanText.matchAll(linkRegex));
   
-  if (matches.length === 0) return text;
+  if (matches.length === 0) return cleanText;
   
   // Criar resultado com links substituídos
   const result: React.ReactNode[] = [];
@@ -40,7 +65,7 @@ const processMessageWithLinks = (text: string): React.ReactNode => {
     
     // Adicionar texto antes do link
     if (matchIndex > lastIndex) {
-      result.push(text.substring(lastIndex, matchIndex));
+      result.push(cleanText.substring(lastIndex, matchIndex));
     }
     
     // Preparar URL completa para o link
@@ -63,8 +88,8 @@ const processMessageWithLinks = (text: string): React.ReactNode => {
   });
   
   // Adicionar qualquer texto restante após o último link
-  if (lastIndex < text.length) {
-    result.push(text.substring(lastIndex));
+  if (lastIndex < cleanText.length) {
+    result.push(cleanText.substring(lastIndex));
   }
   
   return result;
@@ -78,7 +103,7 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: 'welcome', text: "Olá, como posso ajudar hoje?", sender: 'bot', isComplete: true }
+    { id: 'welcome', text: apiKey ? "Olá, como posso ajudar hoje?" : "⚠️ API Key não configurada. Verifique o arquivo .env", sender: 'bot', isComplete: true }
   ]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -306,6 +331,12 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
 
   const sendMessage = async () => {
     if (inputText.trim() === '') return;
+    
+    // Verificar se a API key está configurada
+    if (!apiKey || apiKey.trim() === '') {
+      fragmentMessage("❌ API Key não configurada. Por favor, configure a variável VITE_GEMINI_API_KEY no arquivo .env com sua chave do Google AI Studio.", 'bot');
+      return;
+    }
 
     // Adicionar mensagem do usuário
     const userMessageId = generateUniqueId();
@@ -361,6 +392,10 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
       });
 
       if (!response.ok) {
+        // Verificar se é erro 403 antes de tentar fallback
+        if (response.status === 403) {
+          throw new Error('❌ Erro 403: API Key inválida ou sem permissões. Verifique se a chave está correta e ativa no Google AI Studio.');
+        }
         // Se a resposta não for bem-sucedida, tentar com o modelo gemini-pro como fallback
         const fallbackResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
           method: 'POST',
@@ -388,6 +423,9 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
         });
 
         if (!fallbackResponse.ok) {
+          if (fallbackResponse.status === 403) {
+            throw new Error('❌ Erro 403: API Key inválida ou sem permissões. Verifique se a chave está correta e ativa no Google AI Studio.');
+          }
           throw new Error(`Erro na API: ${fallbackResponse.status} ${fallbackResponse.statusText}`);
         }
 
@@ -395,7 +433,8 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
         
         if (fallbackData.candidates && fallbackData.candidates[0]?.content?.parts && fallbackData.candidates[0].content.parts[0]?.text) {
           const botResponse = fallbackData.candidates[0].content.parts[0].text;
-          fragmentMessage(botResponse, 'bot');
+          const cleanResponse = removeMarkdownFormatting(botResponse);
+          fragmentMessage(cleanResponse, 'bot');
         } else {
           throw new Error('Formato de resposta inesperado');
         }
@@ -405,7 +444,8 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
         // Verificar se a resposta contém o conteúdo esperado
         if (data.candidates && data.candidates[0]?.content?.parts && data.candidates[0].content.parts[0]?.text) {
           const botResponse = data.candidates[0].content.parts[0].text;
-          fragmentMessage(botResponse, 'bot');
+          const cleanResponse = removeMarkdownFormatting(botResponse);
+          fragmentMessage(cleanResponse, 'bot');
         } else {
           throw new Error('Formato de resposta inesperado');
         }
@@ -538,7 +578,7 @@ const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
             </button>
           </div>
           <div className="gemini-chatbot-powered-by">
-            Powered by TargetWeb
+            Powered by <a href="https://www.targetweb.tech" target="_blank" rel="noopener noreferrer">TargetWeb</a>
           </div>
         </div>
       </div>

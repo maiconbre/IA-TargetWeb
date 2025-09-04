@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useCountdown } from '../hooks/useCountdown';
 import { UserPlus, Calendar, BarChart } from 'lucide-react';
 import {
