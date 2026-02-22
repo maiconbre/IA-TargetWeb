@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+
 import ChatPage, { ChatWidget } from './pages/ChatPage';
 import VendaPage2 from './pages/VendaPage2';
 import './index.css';
@@ -53,37 +53,20 @@ FORA DE TEMA:
 - Nunca dê conselhos médicos, jurídicos ou de outras áreas. Apenas diga que não pode ajudar com isso e volte ao foco.`;
 
 
-  const pageTransition = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.3, ease: "easeInOut" }
-  };
 
   return (
     <div className="min-h-screen bg-[#0D121E] text-white">
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={location.pathname}
-          className="w-full"
-          initial={pageTransition.initial}
-          animate={pageTransition.animate}
-          exit={pageTransition.exit}
-          transition={pageTransition.transition}
-        >
-          <Routes location={location}>
-            <Route path="/" element={
-              <ChatPage apiKey={apiKey} systemPrompt={promptPersonalizado} />
-            } />
-            <Route path="/landing" element={
-              <>
-                <VendaPage2 />
-                <ChatWidget apiKey={apiKey} systemPrompt={promptPersonalizado} />
-              </>
-            } />
-          </Routes>
-        </motion.div>
-      </AnimatePresence>
+      <Routes location={location}>
+        <Route path="/" element={
+          <ChatPage apiKey={apiKey} systemPrompt={promptPersonalizado} />
+        } />
+        <Route path="/landing" element={
+          <>
+            <VendaPage2 />
+            <ChatWidget apiKey={apiKey} systemPrompt={promptPersonalizado} />
+          </>
+        } />
+      </Routes>
     </div>
   );
 };
